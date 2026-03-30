@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "231349974349",
+    "project_id": "campus-erp-jgu",
+    "storage_bucket": "campus-erp-jgu.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231349974349:android:37598a8d2d5c2b90b8f304",
+        "android_client_info": {
+          "package_name": "com.example.college_erp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231349974349-3lpt9r5tuuanecgb5905bifh5i9079u2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8z9f_Udb9e3vvW-0UgWwMsRuUAnCdYXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231349974349-3lpt9r5tuuanecgb5905bifh5i9079u2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "231349974349-3u7r7ikh6mu6j3ojt6urh9uokamdnaqt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.collegeErp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
