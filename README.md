@@ -2,7 +2,7 @@
 # ⚡ Campus ERP – JG University
 
 <p align="center">
-  <img src="assets/images/banner.png" alt="Campus ERP Banner"/>
+  <img src="./college_erp/assets/images/banner.png" alt="Campus ERP Banner"/>
 </p>
 
 <p align="center">
