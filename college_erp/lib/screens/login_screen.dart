@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_theme.dart';
 import '../services/auth_service.dart';
+import '../providers/current_user.dart';
 import '../main.dart';
 import 'auth/register_screen.dart';
 import '../screens/faculty_dashboard_screen.dart';
@@ -46,6 +47,10 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     final user = result['user'] as AppUser;
+
+    // ── Set the global currentUser so all screens update dynamically ──
+    currentUser.setUser(user);
+
     if (user.role == UserRole.faculty) {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (_) => const FacultyDashboardScreen()));
@@ -92,7 +97,6 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 24),
 
-                // Logo
                 Center(
                   child: Container(
                     width: 72, height: 72,
@@ -127,7 +131,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 28),
 
-                // Email field
                 Text('Email Address', style: GoogleFonts.nunito(
                     fontSize: 13, fontWeight: FontWeight.w600, color: AppTheme.textPrimary)),
                 const SizedBox(height: 8),
@@ -146,7 +149,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 18),
 
-                // Password field
                 Text('Password', style: GoogleFonts.nunito(
                     fontSize: 13, fontWeight: FontWeight.w600, color: AppTheme.textPrimary)),
                 const SizedBox(height: 8),
@@ -172,7 +174,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 8),
 
-                // Forgot password
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -183,7 +184,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 8),
 
-                // Login button
                 SizedBox(
                   width: double.infinity, height: 52,
                   child: ElevatedButton(
@@ -202,7 +202,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
 
-                // Register link — students only
                 if (_isStudent) ...[
                   const SizedBox(height: 20),
                   Center(

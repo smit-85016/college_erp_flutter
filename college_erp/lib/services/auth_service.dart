@@ -246,7 +246,7 @@ class AuthService {
         .collection('registration_requests')
         .where('facultyId', isEqualTo: facultyId)
         .where('status', isEqualTo: 'pending')
-        .orderBy('requestedAt', descending: true)
+        // .orderBy('requestedAt', descending: true)
         .snapshots();
   }
 
@@ -300,4 +300,4 @@ class AuthService {
       return e.message ?? 'Failed to send reset email.';
     }
   }
-}
+}                            
