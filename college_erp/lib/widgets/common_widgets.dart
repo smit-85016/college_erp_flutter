@@ -2,6 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_theme.dart';
 
+// 🔥 PREMIUM APP LOGO (UPDATED)
+Widget appLogo({double size = 100}) {
+  return Container(
+    width: size,
+    height: size,
+    decoration: BoxDecoration(
+      gradient: const LinearGradient(
+        colors: [Color(0xFF34A853), Color(0xFF2E8B57)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(size * 0.25),
+      boxShadow: const [
+        BoxShadow(
+          color: Colors.black26,
+          blurRadius: 15,
+          offset: Offset(0, 6),
+        )
+      ],
+    ),
+    child: Icon(
+      Icons.school,
+      color: Colors.white,
+      size: size * 0.5,
+    ),
+  );
+}
+
 class MetricCard extends StatelessWidget {
   final String label;
   final String value;

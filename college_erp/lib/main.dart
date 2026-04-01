@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_core/firebase_core.dart'; // ✅ NEW
+import 'package:firebase_core/firebase_core.dart';
 
 import 'theme/app_theme.dart';
 import 'screens/login_screen.dart';
@@ -11,13 +11,16 @@ import 'screens/timetable_screen.dart';
 import 'screens/marks_screen.dart';
 import 'screens/notice_board_screen.dart';
 import 'screens/faculty_screen.dart';
-import 'firebase_options.dart'; // ✅ ADD THIS
+import 'firebase_options.dart';
+
+// 👉 ADD THIS (your animated splash)
+import 'screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform, // ✅ IMPORTANT
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   runApp(const CollegeERPApp());
@@ -32,7 +35,9 @@ class CollegeERPApp extends StatelessWidget {
       title: 'Campus ERP – JG University',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const LoginScreen(), // ✅ SAME (important for your flow)
+
+      // 🔥 START FROM SPLASH
+      home: SplashScreen(),
     );
   }
 }
@@ -48,13 +53,41 @@ class _MainShellState extends State<MainShell> {
   int _selectedIndex = 0;
 
   final List<Map<String, dynamic>> _navItems = [
-    {'icon': Icons.dashboard_outlined, 'activeIcon': Icons.dashboard, 'label': 'Dashboard'},
-    {'icon': Icons.person_outline, 'activeIcon': Icons.person, 'label': 'Student Profile'},
-    {'icon': Icons.calendar_today_outlined, 'activeIcon': Icons.calendar_today, 'label': 'Attendance'},
-    {'icon': Icons.schedule_outlined, 'activeIcon': Icons.schedule, 'label': 'Timetable'},
-    {'icon': Icons.bar_chart_outlined, 'activeIcon': Icons.bar_chart, 'label': 'Marks & Results'},
-    {'icon': Icons.campaign_outlined, 'activeIcon': Icons.campaign, 'label': 'Notice Board'},
-    {'icon': Icons.people_outline, 'activeIcon': Icons.people, 'label': 'Faculty'},
+    {
+      'icon': Icons.dashboard_outlined,
+      'activeIcon': Icons.dashboard,
+      'label': 'Dashboard'
+    },
+    {
+      'icon': Icons.person_outline,
+      'activeIcon': Icons.person,
+      'label': 'Student Profile'
+    },
+    {
+      'icon': Icons.calendar_today_outlined,
+      'activeIcon': Icons.calendar_today,
+      'label': 'Attendance'
+    },
+    {
+      'icon': Icons.schedule_outlined,
+      'activeIcon': Icons.schedule,
+      'label': 'Timetable'
+    },
+    {
+      'icon': Icons.bar_chart_outlined,
+      'activeIcon': Icons.bar_chart,
+      'label': 'Marks & Results'
+    },
+    {
+      'icon': Icons.campaign_outlined,
+      'activeIcon': Icons.campaign,
+      'label': 'Notice Board'
+    },
+    {
+      'icon': Icons.people_outline,
+      'activeIcon': Icons.people,
+      'label': 'Faculty'
+    },
   ];
 
   final List<Widget> _screens = const [
@@ -72,7 +105,6 @@ class _MainShellState extends State<MainShell> {
     Navigator.pop(context);
   }
 
-  // ✅ Logout (same as your old)
   void _logout() {
     Navigator.pop(context);
     Navigator.pushReplacement(
@@ -96,7 +128,6 @@ class _MainShellState extends State<MainShell> {
             },
           ),
         ),
-
         title: Row(
           children: [
             Container(
@@ -119,7 +150,6 @@ class _MainShellState extends State<MainShell> {
             ),
           ],
         ),
-
         actions: [
           GestureDetector(
             onTap: () {
@@ -148,20 +178,16 @@ class _MainShellState extends State<MainShell> {
             ),
           ),
         ],
-
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: Container(height: 1, color: AppTheme.border),
         ),
       ),
-
       drawer: Drawer(
         backgroundColor: Colors.white,
         child: SafeArea(
           child: Column(
             children: [
-
-              // Header
               GestureDetector(
                 onTap: () {
                   setState(() {
@@ -171,7 +197,8 @@ class _MainShellState extends State<MainShell> {
                 },
                 child: Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                   color: AppTheme.primary,
                   child: Row(
                     children: [
@@ -214,10 +241,7 @@ class _MainShellState extends State<MainShell> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 8),
-
-              // Menu
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -259,10 +283,7 @@ class _MainShellState extends State<MainShell> {
                   },
                 ),
               ),
-
               const Divider(),
-
-              // Logout
               ListTile(
                 leading: const Icon(Icons.logout,
                     color: Color(0xFFE24B4A), size: 22),
@@ -276,13 +297,11 @@ class _MainShellState extends State<MainShell> {
                 ),
                 onTap: _logout,
               ),
-
               const SizedBox(height: 8),
             ],
           ),
         ),
       ),
-
       body: _screens[_selectedIndex],
     );
   }
