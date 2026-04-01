@@ -1,8 +1,3 @@
-Alright 😎🔥 — now we’re going **ULTRA PRO LEVEL** (this is the kind of README that gets attention from recruiters + GitHub trending vibes).
-
-👉 Copy-paste this directly:
-
----
 
 # ⚡ Campus ERP – JG University
 
@@ -32,13 +27,13 @@ Alright 😎🔥 — now we’re going **ULTRA PRO LEVEL** (this is the kind of 
 
 ---
 
-## 🎬 Live Demo
+<!-- ## 🎬 Live Demo
 
 <p align="center">
   <img src="assets/demo/app_demo.gif" width="300"/>
 </p>
 
----
+--- -->
 
 ## 🧠 About The Project
 
@@ -78,11 +73,24 @@ Alright 😎🔥 — now we’re going **ULTRA PRO LEVEL** (this is the kind of 
 
 ```bash
 lib/
+│── main.dart
+│
 ├── screens/
+│   ├── splash_screen.dart
+│   ├── login_screen.dart
+│   ├── dashboard_screen.dart
+│   ├── profile_screen.dart
+│   ├── attendance_screen.dart
+│   ├── timetable_screen.dart
+│   ├── marks_screen.dart
+│   ├── notice_board_screen.dart
+│   └── faculty_screen.dart
+│
 ├── widgets/
-├── services/
+│   └── common_widgets.dart
+│
 ├── theme/
-└── main.dart
+│   └── app_theme.dart
 ```
 
 ---
@@ -100,7 +108,8 @@ lib/
 ## ⚙️ Installation
 
 ```bash
-git clone https://github.com/your-username/college_erp.git
+git clone https://github.com/smit-85016/college_erp_flutter.git
+cd college_erp_flutter
 cd college_erp
 flutter pub get
 flutter run
@@ -138,8 +147,8 @@ android/app/
 ## 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=your-username&show_icons=true&theme=radical"/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=your-username&theme=radical"/>
+  <img src="https://github-readme-stats.vercel.app/api?username=smit-85016&show_icons=true&theme=radical"/>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=smit-85016&theme=radical"/>
 </p>
 
 ---
@@ -147,14 +156,13 @@ android/app/
 ## 🧑‍💻 Author
 
 **Smit Shah**
-🎓 JG University
 
 ---
 
 ## 💼 Connect With Me
 
 <p align="center">
-  <a href="https://linkedin.com/in/your-linkedin">
+  <a href="https://www.linkedin.com/in/smit-shah-093942243/">
     <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin&style=for-the-badge"/>
   </a>
 </p>
@@ -168,64 +176,3 @@ If you like this project:
 👉 Star ⭐ this repo
 👉 Share 📢 with others
 👉 Fork 🍴 to contribute
-
----
-
-# 🧨 FINAL BOOST (VERY IMPORTANT)
-
-To make this **truly viral**, do these 5 things:
-
-### 1. Add Banner
-
-* Create in Canva:
-  Text: **Campus ERP**
-  Subtitle: **Flutter + Firebase App**
-
----
-
-### 2. Add Demo GIF
-
-Use:
-
-* Screen Recorder
-* Convert to GIF → put in `assets/demo/`
-
----
-
-### 3. Add Screenshots
-
-Create folder:
-
-```
-assets/screens/
-```
-
----
-
-### 4. Replace:
-
-* `your-username`
-* `your-linkedin`
-
----
-
-### 5. Push with good commit:
-
-```bash
-git add .
-git commit -m "🔥 Ultra Pro README Added"
-git push
-```
-
----
-
-# 😎 NEXT LEVEL?
-
-If you want I can make:
-
-* 🎥 **YouTube demo script**
-* 📱 **Play Store ready version**
-* 🎨 **UI redesign (premium level)**
-* 🧠 **Add Admin Panel + Backend logic**
-
-Just say: **“next upgrade”** 🚀
