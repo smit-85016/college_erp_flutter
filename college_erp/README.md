@@ -2,7 +2,7 @@
 # ⚡ Campus ERP – JG University
 
 <p align="center">
-  <img src="assets/banner.png" alt="Campus ERP Banner"/>
+  <img src="assets/images/banner.png" alt="Campus ERP Banner"/>
 </p>
 
 <p align="center">
@@ -147,7 +147,7 @@ android/app/
 ## 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=smit-85016&show_icons=true&theme=radical"/>
+  <!-- <img src="https://github-readme-stats.vercel.app/api?username=smit-85016&show_icons=true&theme=radical"/> -->
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=smit-85016&theme=radical"/>
 </p>
 
@@ -173,6 +173,9 @@ android/app/
 
 If you like this project:
 
-👉 Star ⭐ this repo
-👉 Share 📢 with others
-👉 Fork 🍴 to contribute
+👉 Star 
+⭐ this repo
+👉 Share 
+📢 with others
+👉 Fork 
+🍴 to contribute
