@@ -209,3 +209,8 @@ I can upgrade this to:
 * 🧲 Portfolio-ready README
 
 Just say: **“make it viral level”** 😎
+
+
+![GitHub stars](https://img.shields.io/github/stars/your-username/college_erp?style=social)
+![GitHub forks](https://img.shields.io/github/forks/your-username/college_erp?style=social)
+![GitHub issues](https://img.shields.io/github/issues/your-username/college_erp)
