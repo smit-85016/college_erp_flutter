@@ -184,14 +184,14 @@ Each document ID = Firebase Auth UID
 users/
 └── {uid}/
     ├── name        : "Adarsh Patel"       (String)
-    ├── email       : "adarsh@jgu.edu"     (String)
+    ├── email       : "adarsh@gmail.com"     (String)
     ├── role        : "student"             (String) ← "student" or "faculty"
     ├── rollNo      : "21IT001"             (String)
     ├── department  : "B.Tech IT"           (String)
     ├── semester    : "Sem 6"              (String)
     └── uid         : "{uid}"              (String)
 ```
-
+> passward is adarsh12345\
 > ⚠️ **Important:** The `role` field must be either `"student"` or `"faculty"` exactly.  
 > This is what enforces role-based login separation.
 
@@ -310,6 +310,12 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 **Developed by:** Smit Shah
 
+---
+<div align="center">
+
+[![Download APK](https://img.shields.io/badge/Download-APK%20v1.0-brightgreen?style=for-the-badge&logo=android&logoColor=white)](https://github.com/YOUR_USERNAME/college-erp-flutter/releases/download/v1.0.0/app-release.apk)
+
+</div>
 ---
 
 <div align="center">
