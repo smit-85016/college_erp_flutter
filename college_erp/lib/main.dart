@@ -10,6 +10,8 @@ import 'screens/attendance_screen.dart';
 import 'screens/timetable_screen.dart';
 import 'screens/marks_screen.dart';
 import 'screens/notice_board_screen.dart';
+// ADD this import at the top of main.dart
+import 'providers/current_user.dart';
 import 'screens/faculty_screen.dart';
 import 'firebase_options.dart';
 
@@ -151,31 +153,32 @@ class _MainShellState extends State<MainShell> {
           ],
         ),
         actions: [
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                _selectedIndex = 1;
-              });
-            },
-            child: Container(
-              margin: const EdgeInsets.only(right: 16),
-              width: 34,
-              height: 34,
-              decoration: const BoxDecoration(
-                color: AppTheme.primary,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Text(
-                  'SS',
-                  style: GoogleFonts.nunito(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
+          ListenableBuilder(
+            listenable: currentUser,
+            builder: (context, _) {
+              return GestureDetector(
+                onTap: () => setState(() => _selectedIndex = 1),
+                child: Container(
+                  margin: const EdgeInsets.only(right: 16),
+                  width: 34,
+                  height: 34,
+                  decoration: const BoxDecoration(
+                    color: AppTheme.primary,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Text(
+                      currentUser.initials, // ✅ DYNAMIC — "A" for Adarsh
+                      style: GoogleFonts.nunito(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ],
         bottom: PreferredSize(
@@ -188,58 +191,72 @@ class _MainShellState extends State<MainShell> {
         child: SafeArea(
           child: Column(
             children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedIndex = 1;
-                  });
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-                  color: AppTheme.primary,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 48,
-                        height: 48,
-                        decoration: const BoxDecoration(
-                          color: Colors.white24,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: Text(
-                            'SS',
-                            style: GoogleFonts.nunito(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              ListenableBuilder(
+                listenable: currentUser,
+                builder: (context, _) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() => _selectedIndex = 1);
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 24),
+                      color: AppTheme.primary,
+                      child: Row(
                         children: [
-                          Text('Smit Shah',
-                              style: GoogleFonts.nunito(
+                          Container(
+                            width: 48,
+                            height: 48,
+                            decoration: const BoxDecoration(
+                              color: Colors.white24,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Text(
+                                currentUser.initials, // ✅ "A" for Adarsh
+                                style: GoogleFonts.nunito(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.white)),
-                          Text('B.Tech IT · Sem 6',
-                              style: GoogleFonts.nunito(
-                                  fontSize: 12, color: Colors.white70)),
-                          Text('JG University',
-                              style: GoogleFonts.nunito(
-                                  fontSize: 11, color: Colors.white60)),
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                currentUser.name, // ✅ "Adarsh"
+                                style: GoogleFonts.nunito(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                '${currentUser.department} · ${currentUser.semester}', // ✅ Dynamic
+                                style: GoogleFonts.nunito(
+                                  fontSize: 12,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                              Text(
+                                'JG University',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 11,
+                                  color: Colors.white60,
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 8),
               Expanded(

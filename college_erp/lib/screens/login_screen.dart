@@ -48,21 +48,36 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final user = result['user'] as AppUser;
 
-    // ── Set the global currentUser so all screens update dynamically ──
+    // ✅ ROLE CHECK — NEW CODE
+    final bool tryingAsStudent = _isStudent;
+    final bool actuallyStudent = user.role == UserRole.student;
+
+    if (tryingAsStudent != actuallyStudent) {
+      // Role mismatch — block login
+      final correctSection = actuallyStudent ? 'Student' : 'Faculty';
+      _showSnack(
+        '❌ Access denied! Please login from the $correctSection tab.',
+        const Color(0xFFE24B4A),
+      );
+      return; // Stop — don't navigate anywhere
+    }
+
+    // ✅ Role matches — proceed
     currentUser.setUser(user);
 
     if (user.role == UserRole.faculty) {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (_) => const FacultyDashboardScreen()));
     } else {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (_) => const MainShell()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => const MainShell()));
     }
   }
 
   void _forgotPassword() async {
     if (_emailController.text.trim().isEmpty) {
-      _showSnack('Enter your email first, then tap Forgot password.', const Color(0xFFE24B4A));
+      _showSnack('Enter your email first, then tap Forgot password.',
+          const Color(0xFFE24B4A));
       return;
     }
     final err = await AuthService.sendPasswordReset(_emailController.text);
@@ -70,7 +85,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (err != null) {
       _showSnack(err, const Color(0xFFE24B4A));
     } else {
-      _showSnack('Password reset email sent! Check your inbox.', AppTheme.primary);
+      _showSnack(
+          'Password reset email sent! Check your inbox.', AppTheme.primary);
     }
   }
 
@@ -99,17 +115,26 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 Center(
                   child: Container(
-                    width: 72, height: 72,
+                    width: 72,
+                    height: 72,
                     decoration: BoxDecoration(
-                        color: AppTheme.primary, borderRadius: BorderRadius.circular(20)),
-                    child: const Icon(Icons.school, color: Colors.white, size: 38),
+                        color: AppTheme.primary,
+                        borderRadius: BorderRadius.circular(20)),
+                    child:
+                        const Icon(Icons.school, color: Colors.white, size: 38),
                   ),
                 ),
                 const SizedBox(height: 16),
-                Center(child: Text('Campus ERP',
-                    style: GoogleFonts.nunito(fontSize: 26, fontWeight: FontWeight.w800, color: AppTheme.textPrimary))),
-                Center(child: Text('JG University',
-                    style: GoogleFonts.nunito(fontSize: 14, color: AppTheme.textSecondary))),
+                Center(
+                    child: Text('Campus ERP',
+                        style: GoogleFonts.nunito(
+                            fontSize: 26,
+                            fontWeight: FontWeight.w800,
+                            color: AppTheme.textPrimary))),
+                Center(
+                    child: Text('JG University',
+                        style: GoogleFonts.nunito(
+                            fontSize: 14, color: AppTheme.textSecondary))),
                 const SizedBox(height: 36),
 
                 // Toggle
@@ -119,55 +144,80 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(12)),
                   padding: const EdgeInsets.all(4),
                   child: Row(children: [
-                    Expanded(child: _ToggleBtn('Student', _isStudent, () => setState(() {
-                      _isStudent = true;
-                      _emailController.clear(); _passwordController.clear();
-                    }))),
-                    Expanded(child: _ToggleBtn('Faculty', !_isStudent, () => setState(() {
-                      _isStudent = false;
-                      _emailController.clear(); _passwordController.clear();
-                    }))),
+                    Expanded(
+                        child: _ToggleBtn(
+                            'Student',
+                            _isStudent,
+                            () => setState(() {
+                                  _isStudent = true;
+                                  _emailController.clear();
+                                  _passwordController.clear();
+                                }))),
+                    Expanded(
+                        child: _ToggleBtn(
+                            'Faculty',
+                            !_isStudent,
+                            () => setState(() {
+                                  _isStudent = false;
+                                  _emailController.clear();
+                                  _passwordController.clear();
+                                }))),
                   ]),
                 ),
                 const SizedBox(height: 28),
 
-                Text('Email Address', style: GoogleFonts.nunito(
-                    fontSize: 13, fontWeight: FontWeight.w600, color: AppTheme.textPrimary)),
+                Text('Email Address',
+                    style: GoogleFonts.nunito(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: AppTheme.textPrimary)),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   style: GoogleFonts.nunito(fontSize: 14),
                   decoration: _inputDecor(
-                      hint: _isStudent ? 'Enter your college email' : 'Enter your faculty email',
+                      hint: _isStudent
+                          ? 'Enter your college email'
+                          : 'Enter your faculty email',
                       icon: Icons.email_outlined),
                   validator: (v) {
-                    if (v == null || v.isEmpty) return 'Please enter your email';
+                    if (v == null || v.isEmpty)
+                      return 'Please enter your email';
                     if (!v.contains('@')) return 'Enter a valid email';
                     return null;
                   },
                 ),
                 const SizedBox(height: 18),
 
-                Text('Password', style: GoogleFonts.nunito(
-                    fontSize: 13, fontWeight: FontWeight.w600, color: AppTheme.textPrimary)),
+                Text('Password',
+                    style: GoogleFonts.nunito(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: AppTheme.textPrimary)),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _passwordController,
                   obscureText: _obscurePassword,
                   style: GoogleFonts.nunito(fontSize: 14),
-                  decoration: _inputDecor(hint: 'Enter your password', icon: Icons.lock_outline)
+                  decoration: _inputDecor(
+                          hint: 'Enter your password', icon: Icons.lock_outline)
                       .copyWith(
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                        color: AppTheme.textSecondary, size: 20,
+                        _obscurePassword
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: AppTheme.textSecondary,
+                        size: 20,
                       ),
-                      onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                      onPressed: () =>
+                          setState(() => _obscurePassword = !_obscurePassword),
                     ),
                   ),
                   validator: (v) {
-                    if (v == null || v.isEmpty) return 'Please enter your password';
+                    if (v == null || v.isEmpty)
+                      return 'Please enter your password';
                     if (v.length < 6) return 'Minimum 6 characters';
                     return null;
                   },
@@ -179,49 +229,68 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextButton(
                     onPressed: _forgotPassword,
                     child: Text('Forgot password?',
-                        style: GoogleFonts.nunito(fontSize: 13, color: AppTheme.primary)),
+                        style: GoogleFonts.nunito(
+                            fontSize: 13, color: AppTheme.primary)),
                   ),
                 ),
                 const SizedBox(height: 8),
 
                 SizedBox(
-                  width: double.infinity, height: 52,
+                  width: double.infinity,
+                  height: 52,
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _login,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.primary, foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                      backgroundColor: AppTheme.primary,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14)),
                       elevation: 0,
                     ),
                     child: _isLoading
-                        ? const SizedBox(width: 22, height: 22,
-                            child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5))
+                        ? const SizedBox(
+                            width: 22,
+                            height: 22,
+                            child: CircularProgressIndicator(
+                                color: Colors.white, strokeWidth: 2.5))
                         : Text(
-                            _isStudent ? 'Login as Student' : 'Login as Faculty',
-                            style: GoogleFonts.nunito(fontSize: 15, fontWeight: FontWeight.w700)),
+                            _isStudent
+                                ? 'Login as Student'
+                                : 'Login as Faculty',
+                            style: GoogleFonts.nunito(
+                                fontSize: 15, fontWeight: FontWeight.w700)),
                   ),
                 ),
 
                 if (_isStudent) ...[
                   const SizedBox(height: 20),
                   Center(
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Text("Don't have an account? ",
-                          style: GoogleFonts.nunito(fontSize: 13, color: AppTheme.textSecondary)),
-                      GestureDetector(
-                        onTap: () => Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => const RegisterScreen())),
-                        child: Text('Register here',
-                            style: GoogleFonts.nunito(fontSize: 13,
-                                fontWeight: FontWeight.w700, color: AppTheme.primary)),
-                      ),
-                    ]),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Don't have an account? ",
+                              style: GoogleFonts.nunito(
+                                  fontSize: 13, color: AppTheme.textSecondary)),
+                          GestureDetector(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const RegisterScreen())),
+                            child: Text('Register here',
+                                style: GoogleFonts.nunito(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppTheme.primary)),
+                          ),
+                        ]),
                   ),
                 ],
 
                 const SizedBox(height: 32),
-                Center(child: Text('v1.0 · JG University Campus ERP',
-                    style: GoogleFonts.nunito(fontSize: 11, color: AppTheme.textSecondary))),
+                Center(
+                    child: Text('v1.0 · JG University Campus ERP',
+                        style: GoogleFonts.nunito(
+                            fontSize: 11, color: AppTheme.textSecondary))),
               ],
             ),
           ),
@@ -240,9 +309,12 @@ class _LoginScreenState extends State<LoginScreen> {
           color: active ? AppTheme.primary : Colors.transparent,
           borderRadius: BorderRadius.circular(9),
         ),
-        child: Center(child: Text(label, style: GoogleFonts.nunito(
-            fontSize: 14, fontWeight: FontWeight.w700,
-            color: active ? Colors.white : AppTheme.textSecondary))),
+        child: Center(
+            child: Text(label,
+                style: GoogleFonts.nunito(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: active ? Colors.white : AppTheme.textSecondary))),
       ),
     );
   }
@@ -250,19 +322,26 @@ class _LoginScreenState extends State<LoginScreen> {
   InputDecoration _inputDecor({required String hint, required IconData icon}) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: GoogleFonts.nunito(fontSize: 13, color: AppTheme.textSecondary),
+      hintStyle:
+          GoogleFonts.nunito(fontSize: 13, color: AppTheme.textSecondary),
       prefixIcon: Icon(icon, size: 20, color: AppTheme.textSecondary),
-      filled: true, fillColor: Colors.white,
+      filled: true,
+      fillColor: Colors.white,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12),
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppTheme.border, width: 0.8)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),
+      enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppTheme.border, width: 0.8)),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppTheme.primary, width: 1.5)),
-      errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),
+      errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Color(0xFFE24B4A), width: 1.0)),
-      focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),
+      focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Color(0xFFE24B4A), width: 1.5)),
     );
   }
