@@ -308,9 +308,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ## 👨‍💻 Author
 
-**Developed by:** Your Name / Team Name  
-**University:** JG University  
-**Course:** B.Tech Information Technology  
+**Developed by:** Smit Shah
 
 ---
 
