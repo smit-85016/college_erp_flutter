@@ -316,6 +316,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 [![Download APK](https://img.shields.io/badge/Download-APK%20v1.0-brightgreen?style=for-the-badge&logo=android&logoColor=white)](https://github.com/YOUR_USERNAME/college-erp-flutter/releases/download/v1.0.0/app-release.apk)
 
 </div>
+
 ---
 
 <div align="center">
