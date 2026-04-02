@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+// Add these two imports at the top of main.dart
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'theme/app_theme.dart';
 import 'screens/login_screen.dart';
 import 'screens/dashboard_screen.dart';
@@ -18,12 +20,42 @@ import 'firebase_options.dart';
 // 👉 ADD THIS (your animated splash)
 import 'screens/splash_screen.dart';
 
+// Paste this function just above the main() function
+Future<void> _stampOwnership() async {
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    final stamped = prefs.getBool('ownership_stamped') ?? false;
+    if (stamped) return; // already done — never runs twice
+
+    await FirebaseFirestore.instance
+        .collection('app_meta')
+        .doc('ownership')
+        .set({
+      'developer': 'Smit Shah',
+      'enrollment': '21IT001', // ← your enrollment number
+      'department': 'B.Tech IT',
+      'semester': 'Sem 6',
+      'university': 'JG University',
+      'project': 'Campus ERP v1.0',
+      'github': 'github.com/smit-85016/college_erp_flutter',
+      'created_at':
+          FieldValue.serverTimestamp(), // server-side timestamp = proof
+    });
+
+    await prefs.setBool('ownership_stamped', true); // never runs again
+  } catch (_) {
+    // silent fail — never crashes the app
+  }
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await _stampOwnership();
 
   runApp(const CollegeERPApp());
 }
