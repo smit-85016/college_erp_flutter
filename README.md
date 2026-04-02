@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎓 Campus ERP — JG University
+# 🎓 Campus ERP 
 ### A Full-Featured College Management App built with Flutter & Firebase
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)
@@ -17,7 +17,6 @@
 
 ## 📱 Screenshots
 
-> _Add your screenshots here after uploading to the repo_
 
 | Splash | Login | Dashboard | Drawer |
 |--------|-------|-----------|--------|
@@ -27,7 +26,7 @@
 |------------|-----------|-------|--------------|
 | ![attendance](/college_erp/assets/images/ss4.jpeg) | ![timetable](/college_erp/assets/images/ss5.jpeg) | ![marks](/college_erp/assets/images/ss10.jpeg) | ![notices](/college_erp/assets/images/ss9.jpeg) |
 
-> 📁 Place your screenshots in a `/screenshots` folder at the root of the repo.
+
 
 ---
 
@@ -144,7 +143,7 @@ flutter doctor
 
 #### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/college-erp-flutter.git
+git clone https://github.com/smit-85016/college-erp-flutter.git
 cd college-erp-flutter
 ```
 
